@@ -1,0 +1,18 @@
+/* style.css (or your main CSS file) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Custom utilities */
+  .backgroud {
+    background: url('../images/weather_bg.png');
+  }
+  .panel{
+    background-color: #0d9de7c9;
+  }
+  .panel-left{
+    background-color: #0d9de7c9;
+    
+  }
+}

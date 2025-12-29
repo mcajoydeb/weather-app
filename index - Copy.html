@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[url('./assets/images/weather_bg.png')] 
+bg-cover bg-center bg-no-repeat 
+flex items-center justify-center" >
+
+  <div class="w-[900px] max-w-full p-6 rounded-3xl backdrop-blur-xl text-white shadow-xl bg-[#0d9de7c9]">
+
+    <!-- HEADER -->
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+
+      <!-- MAIN -->
+      <div class="md:col-span-2 p-6 rounded-2xl bg-white/20">
+        <h1 class="text-4xl font-semibold">MONDAY</h1>
+        <p class="opacity-80">April 19</p>
+
+        <div class="flex items-center mt-6 gap-6">
+          <div class="text-6xl font-bold">18°C</div>
+          <div>
+            <p class="text-xl">Partly Cloudy</p>
+            <div class="flex gap-4 text-sm mt-2 opacity-80">
+              <span>🌅 07:24</span>
+              <span>🌇 19:15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODAY / TOMORROW -->
+      <div class="flex flex-col gap-6">
+        <div class="p-5 rounded-2xl bg-white/20 text-center">
+          <p class="text-sm opacity-80">TODAY</p>
+          <p class="text-4xl font-bold mt-2">21°C</p>
+          <p class="mt-1">Partly Cloudy</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white/20 text-center">
+          <p class="text-sm opacity-80">TOMORROW</p>
+          <p class="text-4xl font-bold mt-2">24°C</p>
+          <p class="mt-1">Sunny</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DAY PARTS -->
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+      <div class="p-4 rounded-2xl bg-white/20 text-center">
+        <p class="opacity-80">Morning</p>
+        <p class="text-3xl font-semibold mt-2">22°C</p>
+        <p class="text-sm opacity-70 mt-1">Light Rain</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/20 text-center">
+        <p class="opacity-80">Afternoon</p>
+        <p class="text-3xl font-semibold mt-2">24°C</p>
+        <p class="text-sm opacity-70 mt-1">Thunderstorm</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white/20 text-center">
+        <p class="opacity-80">Evening</p>
+        <p class="text-3xl font-semibold mt-2">19°C</p>
+        <p class="text-sm opacity-70 mt-1">Partly Cloudy</p>
+      </div>
+    </div>
+
+    <!-- WEEK FORECAST -->
+    <div class="grid grid-cols-2 md:grid-cols-7 gap-4 text-center">
+      <div class="p-3 rounded-xl bg-white/20">Sat<br><span class="font-semibold">21°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Sun<br><span class="font-semibold">21°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Mon<br><span class="font-semibold">25°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Tue<br><span class="font-semibold">26°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Wed<br><span class="font-semibold">22°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Thu<br><span class="font-semibold">19°C</span></div>
+      <div class="p-3 rounded-xl bg-white/20">Fri<br><span class="font-semibold">18°C</span></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
