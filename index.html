@@ -19,7 +19,8 @@
           <label class="block text-base font-medium mb-1 text-white">Enter a City Name</label>
           <input type="text"
             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="E.g. New York, London, Tokiyo" />
+            placeholder="E.g. New York, London, Tokiyo" id="city"/>
+            <span id="weather"></span>
         </div>
 
         
@@ -37,7 +38,7 @@
        
         <hr class="flex-grow border-t-2 border-gray-300" />
       </div>
-      <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">Use Current Location</button>
+      <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getWeather()">Use Current Location</button>
     </div>
 
 
@@ -49,16 +50,24 @@
 
         <!-- MAIN -->
         <div class="md:col-span-2 p-6 rounded-2xl bg-white/20">
-          <h1 class="text-4xl font-semibold">MONDAY</h1>
-          <p class="opacity-80">April 19</p>
+          <div class="flex weather-details">
+            <div>
+              <h1 class="text-4xl font-semibold" id="location"></h1>
+              <p class="opacity-80" id="date_n_day"></p>
+            </div>
+            <div>
+              <img src="" id="weather_details_condition"/>
+            </div>
+          </div>
+          
 
           <div class="flex items-center mt-6 gap-6">
-            <div class="text-6xl font-bold">18°C</div>
+            <div class="text-6xl font-bold" id="current_temp"></div>
             <div>
-              <p class="text-xl">Partly Cloudy</p>
+              <p class="text-xl" id="current_condition"></p>
               <div class="flex gap-4 text-sm mt-2 opacity-80">
-                <span>🌅 07:24</span>
-                <span>🌇 19:15</span>
+                <span id="sunrise">🌅 07:24</span>
+                <span id="sunset">🌇 19:15</span>
               </div>
             </div>
           </div>

@@ -12,7 +12,9 @@
     background-color: #0d9de7c9;
   }
   .panel-left{
-    background-color: #0d9de7c9;
-    
+    background-color: #0d9de7c9;    
+  }
+  .weather-details{
+    justify-content: space-between;
   }
 }
