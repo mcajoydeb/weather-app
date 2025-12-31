@@ -20,12 +20,12 @@
           <input type="text"
             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="E.g. New York, London, Tokiyo" id="city"/>
-            <span id="weather"></span>
+            <span id="city_not_found"></span>
         </div>
 
         
         <!-- Button -->
-        <button type="submit" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
+        <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getWeather()">
           Search
         </button>
       </form>
@@ -38,7 +38,7 @@
        
         <hr class="flex-grow border-t-2 border-gray-300" />
       </div>
-      <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getWeather()">Use Current Location</button>
+      <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getCurrentLocationWeather()">Use Current Location</button>
     </div>
 
 
@@ -66,8 +66,8 @@
             <div>
               <p class="text-xl" id="current_condition"></p>
               <div class="flex gap-4 text-sm mt-2 opacity-80">
-                <span id="sunrise">🌅 07:24</span>
-                <span id="sunset">🌇 19:15</span>
+                <span id="sunrise"> </span>
+                <span id="sunset"></span>
               </div>
             </div>
           </div>
@@ -77,14 +77,14 @@
         <div class="flex flex-col gap-6">
           <div class="p-5 rounded-2xl bg-white/20 text-center">
             <p class="text-sm opacity-80">TODAY</p>
-            <p class="text-4xl font-bold mt-2">21°C</p>
-            <p class="mt-1">Partly Cloudy</p>
+            <p class="text-4xl font-bold mt-2" id="today"></p>
+            <p class="mt-1" id="today_condition"></p>
           </div>
 
           <div class="p-5 rounded-2xl bg-white/20 text-center">
-            <p class="text-sm opacity-80">TOMORROW</p>
-            <p class="text-4xl font-bold mt-2">24°C</p>
-            <p class="mt-1">Sunny</p>
+            <p class="text-sm opacity-80" >TOMORROW</p>
+            <p class="text-4xl font-bold mt-2" id="tomorrow"></p>
+            <p class="mt-1" id="tomorrow_condition">Sunny</p>
           </div>
         </div>
 
@@ -94,25 +94,25 @@
       <div class="grid md:grid-cols-3 gap-6 mb-6">
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Morning</p>
-          <p class="text-3xl font-semibold mt-2">22°C</p>
-          <p class="text-sm opacity-70 mt-1">Light Rain</p>
+          <p class="text-3xl font-semibold mt-2" id="morning"></p>
+          <p class="text-sm opacity-70 mt-1" id="morning_condition"></p>
         </div>
 
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Afternoon</p>
-          <p class="text-3xl font-semibold mt-2">24°C</p>
-          <p class="text-sm opacity-70 mt-1">Thunderstorm</p>
+          <p class="text-3xl font-semibold mt-2" id="afternoon"></p>
+          <p class="text-sm opacity-70 mt-1" id="afternoon_condition"></p>
         </div>
 
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Evening</p>
-          <p class="text-3xl font-semibold mt-2">19°C</p>
-          <p class="text-sm opacity-70 mt-1">Partly Cloudy</p>
+          <p class="text-3xl font-semibold mt-2" id="evening"></p>
+          <p class="text-sm opacity-70 mt-1" id="evening_condition"></p>
         </div>
       </div>
 
       <!-- WEEK FORECAST -->
-      <div class="grid grid-cols-2 md:grid-cols-7 gap-4 text-center">
+      <div class="grid grid-cols-2 md:grid-cols-7 gap-4 text-center" id="weekdays">
         <div class="p-3 rounded-xl bg-white/20">Sat<br><span class="font-semibold">21°C</span></div>
         <div class="p-3 rounded-xl bg-white/20">Sun<br><span class="font-semibold">21°C</span></div>
         <div class="p-3 rounded-xl bg-white/20">Mon<br><span class="font-semibold">25°C</span></div>

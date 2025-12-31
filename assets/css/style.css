@@ -17,4 +17,11 @@
   .weather-details{
     justify-content: space-between;
   }
+  .text-shadow{
+    text-shadow: 0 0 5px white, 0 0 10px white, 0 0 15px white;
+  }
+  .fade-text {
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
 }
