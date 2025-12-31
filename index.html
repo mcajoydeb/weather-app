@@ -10,69 +10,79 @@
 </head>
 
 <body class="min-h-screen backgroud">
-  <div class="flex gap-4 justify-center mt-6">
-    <div class="p-4 w-1/4 panel-left rounded-2xl rounded-xl  ">
-      <form class="w-full max-w-sm">
-       
-        <!-- Name -->
-        <div class="mb-4">
-          <label class="block text-base font-medium mb-1 text-white">Enter a City Name</label>
-          <input type="text"
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="E.g. New York, London, Tokiyo" id="city"/>
-            <span id="city_not_found"></span>
-        </div>
+  <div class="flex flex-col lg:flex-row gap-4 mt-6 px-4">
 
-        
-        <!-- Button -->
-        <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getWeather()">
+    <!-- LEFT PANEL -->
+    <div class="p-4 w-full lg:w-[320px] shrink-0 panel-left rounded-2xl">
+  
+      <form class="w-full">
+        <div class="mb-4">
+          <label class="block text-base font-medium mb-1 text-white">
+            Enter a City Name
+          </label>
+  
+          <input
+            type="text"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="E.g. New York, London, Tokyo"
+            id="city"
+          />
+          <span id="city_not_found"></span>
+        </div>
+  
+        <button
+          type="button"
+          class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition"
+          onclick="getWeather()"
+        >
           Search
         </button>
       </form>
-    
-      <div class="flex items-center">
-        
+  
+      <div class="flex items-center my-4">
         <hr class="flex-grow border-t-2 border-gray-300" />
-      
         <span class="mx-4 text-gray-600 font-medium">or</span>
-       
         <hr class="flex-grow border-t-2 border-gray-300" />
       </div>
-      <button type="button" class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition" onclick="getCurrentLocationWeather()">Use Current Location</button>
+  
+      <button
+        type="button"
+        class="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-teal-700 transition"
+        onclick="getCurrentLocationWeather()"
+      >
+        Use Current Location
+      </button>
+  
     </div>
-
-
-
-    <div class="w-[900px] max-w-full p-6 rounded-2xl backdrop-blur-xl text-white shadow-xl panel">
+  
+    <!-- RIGHT PANEL -->
+    <div class="w-full max-w-full p-6 rounded-2xl backdrop-blur-xl text-white shadow-xl panel">
 
       <!-- HEADER -->
-      <div class="grid md:grid-cols-3 gap-6 mb-6">
-
-        <!-- MAIN -->
-        <div class="md:col-span-2 p-6 rounded-2xl bg-white/20">
-          <div class="flex weather-details">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    
+        <!-- MAIN WEATHER -->
+        <div class="lg:col-span-2 p-6 rounded-2xl bg-white/20">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
               <h1 class="text-4xl font-semibold" id="location"></h1>
               <p class="opacity-80" id="date_n_day"></p>
             </div>
-            <div>
-              <img src="" id="weather_details_condition"/>
-            </div>
+            <img src="" id="weather_details_condition" />
           </div>
-          
-
-          <div class="flex items-center mt-6 gap-6">
+    
+          <div class="flex flex-col sm:flex-row items-start sm:items-center mt-6 gap-6">
             <div class="text-6xl font-bold" id="current_temp"></div>
             <div>
               <p class="text-xl" id="current_condition"></p>
               <div class="flex gap-4 text-sm mt-2 opacity-80">
-                <span id="sunrise"> </span>
+                <span id="sunrise"></span>
                 <span id="sunset"></span>
               </div>
             </div>
           </div>
         </div>
-
+    
         <!-- TODAY / TOMORROW -->
         <div class="flex flex-col gap-6">
           <div class="p-5 rounded-2xl bg-white/20 text-center">
@@ -80,39 +90,39 @@
             <p class="text-4xl font-bold mt-2" id="today"></p>
             <p class="mt-1" id="today_condition"></p>
           </div>
-
+    
           <div class="p-5 rounded-2xl bg-white/20 text-center">
-            <p class="text-sm opacity-80" >TOMORROW</p>
+            <p class="text-sm opacity-80">TOMORROW</p>
             <p class="text-4xl font-bold mt-2" id="tomorrow"></p>
-            <p class="mt-1" id="tomorrow_condition">Sunny</p>
+            <p class="mt-1" id="tomorrow_condition"></p>
           </div>
         </div>
-
+    
       </div>
-
+    
       <!-- DAY PARTS -->
-      <div class="grid md:grid-cols-3 gap-6 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Morning</p>
           <p class="text-3xl font-semibold mt-2" id="morning"></p>
           <p class="text-sm opacity-70 mt-1" id="morning_condition"></p>
         </div>
-
+    
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Afternoon</p>
           <p class="text-3xl font-semibold mt-2" id="afternoon"></p>
           <p class="text-sm opacity-70 mt-1" id="afternoon_condition"></p>
         </div>
-
+    
         <div class="p-4 rounded-2xl bg-white/20 text-center">
           <p class="opacity-80">Evening</p>
           <p class="text-3xl font-semibold mt-2" id="evening"></p>
           <p class="text-sm opacity-70 mt-1" id="evening_condition"></p>
         </div>
       </div>
-
+    
       <!-- WEEK FORECAST -->
-      <div class="grid grid-cols-2 md:grid-cols-7 gap-4 text-center" id="weekdays">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center" id="weekdays">
         <div class="p-3 rounded-xl bg-white/20">Sat<br><span class="font-semibold">21°C</span></div>
         <div class="p-3 rounded-xl bg-white/20">Sun<br><span class="font-semibold">21°C</span></div>
         <div class="p-3 rounded-xl bg-white/20">Mon<br><span class="font-semibold">25°C</span></div>
@@ -121,10 +131,12 @@
         <div class="p-3 rounded-xl bg-white/20">Thu<br><span class="font-semibold">19°C</span></div>
         <div class="p-3 rounded-xl bg-white/20">Fri<br><span class="font-semibold">18°C</span></div>
       </div>
-
+    
     </div>
-
+    
+  
   </div>
+  
   <script src="assets/js/scripts.js"></script>
 </body>
 
