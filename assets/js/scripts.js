@@ -60,27 +60,6 @@ function getWeathers() {
     });
 }
 
-function fetchWeatherByCoords(lat, lon) {
-
-  const url = `${apUrl}${apiKey}&q=${lat},${lon}&days=8`;
-  document.getElementById("city_not_found").innerHTML = '';
-  fetch(url)
-    .then((response) => {
-
-      if (!response.ok) {
-        throw new Error("City not found");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      renderWeather(data)
-
-    })
-    .catch((error) => {
-      document.getElementById("city_not_found").innerHTML =
-        `<p class="text-red-500 text-shadow font-extrabold fade-text">${error.message}</p>`;
-    });
-}
 
 
 function getCurrentLocationWeather() {
