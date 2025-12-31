@@ -1,8 +1,44 @@
 const apiKey = "daf3181939ef4977868132737252812";
 const apUrl = "http://api.weatherapi.com/v1/forecast.json?key=";
-getWeather();
+const cityInput = document.getElementById("city");
+const recentWrapper = document.getElementById("recent-wrapper");
+const recentSelect = document.getElementById("recentCities");
+var currentTempC = 0;
+var currentTempF= 0;
+let isCelsius = true;
+const STORAGE_KEY = "recent_cities";
 
-function getWeather() {
+getWeather();
+function getWeather(cityName = null) {
+  const city = document.getElementById("city").value || "London";  
+  if (!validateCity(city)) return;
+  fetchWeather(`q=${city}`);
+  saveRecentCity(city);
+}
+
+function fetchWeather(query = null) {
+ 
+  const url = `${apUrl}${apiKey}&${query}&days=8`;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => updateUI(data))
+    .catch(() => showError("Invalid location"));
+}
+
+function validateCity(city) {
+  if (!city) {
+    showError("City name cannot be empty");
+    return false;
+  }
+  return true;
+}
+
+function showError(msg) {
+  document.getElementById("city_not_found").innerHTML =
+        `<p class="text-red-500 text-shadow font-extrabold fade-text">${msg}</p>`;
+}
+
+function getWeathers() {
   const city = document.getElementById("city").value || "London";  
   const url = `${apUrl}${apiKey}&q=${city}&days=8`;
   document.getElementById("city_not_found").innerHTML = '';
@@ -19,8 +55,7 @@ function getWeather() {
       
     })
     .catch((error) => {
-      document.getElementById("city_not_found").innerHTML =
-        `<p class="text-red-500 text-shadow font-extrabold fade-text">${error.message}</p>`;
+      
     });
 }
 
@@ -46,22 +81,14 @@ function getWeather() {
     });
   }
 
+  
   function getCurrentLocationWeather() {
-    if (!navigator.geolocation) {
-      alert("Geolocation not supported");
-      return;
-    }
-  
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-  
-        fetchWeatherByCoords(lat, lon);
+      pos => {
+        const { latitude, longitude } = pos.coords;
+        fetchWeather(`q=${latitude},${longitude}`);
       },
-      (error) => {
-        alert("Location access denied");
-      }
+      () => showError("Location permission denied")
     );
   }
 
@@ -79,8 +106,10 @@ function getDayByDayNum(day_num) {
   return today; 
 }
 
-function renderWeather(data){
+function updateUI(data){
       let day_name = getDay()
+      currentTempC = data.current.temp_c;
+      currentTempF   = data.current.temp_f;
       let weather_condition_icon = data.current.condition.icon ? data.current.condition.icon : '//cdn.weatherapi.com/weather/64x64/day/122.png'
       document.getElementById("location").innerText = data.location.name;
       document.getElementById("date_n_day").innerText = `${day_name} ${data.location.localtime}`;
@@ -120,3 +149,40 @@ function renderWeather(data){
       
       document.getElementById("weekdays").innerHTML = forcast;
 }
+
+function saveRecentCity(city) {
+  let cities = JSON.parse(localStorage.getItem("recent")) || [];
+  cities = cities.filter(c => c.toLowerCase() !== city.toLowerCase());
+  cities.unshift(city);
+  cities = cities.slice(0, 5);
+  localStorage.setItem("recent", JSON.stringify(cities));
+  updateDropdown();
+}
+
+function updateDropdown() {
+  const cities = JSON.parse(localStorage.getItem("recent")) || [];
+  if (!cities.length) return;
+
+  recentWrapper.classList.remove("hidden");
+  recentSelect.innerHTML = `<option value="">Recent Searches</option>`;
+  cities.forEach(city => {
+    recentSelect.innerHTML += `<option>${city}</option>`;
+  });
+}
+
+recentSelect.addEventListener("change", function () {
+  const selectedCity = this.value;
+  if (selectedCity) {
+    cityInput.value = selectedCity;
+    getWeather(selectedCity);
+  }
+});
+
+
+toggleTemp.addEventListener("click", () => {
+  
+  isCelsius = !isCelsius;
+  document.getElementById("current_temp").innerText = isCelsius
+    ? `${currentTempC}°C`
+    : `${currentTempF}°F`;
+});
