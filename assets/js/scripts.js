@@ -1,4 +1,4 @@
-const apiKey = "daf3181939ef4977868132737252812";
+const apiKey = "Your key";
 const apUrl = "http://api.weatherapi.com/v1/forecast.json?key=";
 const cityInput = document.getElementById("city");
 const recentWrapper = document.getElementById("recent-wrapper");
