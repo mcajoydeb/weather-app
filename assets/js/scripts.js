@@ -19,7 +19,7 @@ function getWeather(cityName = null) {
 
 function fetchWeather(query = null) {
 
-  const url = `${apUrl}${apiKey}&${query}&days=8`;
+  const url = `${apUrl}${apiKey}&${query}&days=7`;
   fetch(url)
     .then(res => res.json())
     .then(data => updateUI(data))
@@ -87,12 +87,15 @@ function getDayByDayNum(day_num) {
 }
 
 function updateUI(data) {
+  console.log(data)
   let day_name = getDay()
   currentTempC = data.current.temp_c;
   currentTempF = data.current.temp_f;
+  let date = convertDate(data.location.localtime);
   let weather_condition_icon = data.current.condition.icon ? data.current.condition.icon : '//cdn.weatherapi.com/weather/64x64/day/122.png'
   document.getElementById("location").innerText = data.location.name;
-  document.getElementById("date_n_day").innerText = `${day_name} ${data.location.localtime}`;
+
+  document.getElementById("date_n_day").innerText = `${day_name} ${date}`;
 
   document.getElementById("current_temp").innerText = `${data.current.temp_c}°C`;
   document.getElementById("current_condition").innerText = `${data.current.condition.text}`;
@@ -122,13 +125,41 @@ function updateUI(data) {
 
     const name = date.toLocaleDateString("en-US", { weekday: "long" });
 
-    forcast += '<div class="p-3 rounded-xl bg-white/20">' + name + '<br><span class="font-semibold">' + day.day.avgtemp_c + '°C</span></div>'
+    //forcast += '<div class="p-3 rounded-xl bg-white/20">' + name + '<br><span class="font-semibold">' + day.day.avgtemp_c + '°C</span></div>'
+    forcast += `<div class="lg:col-span-2 p-6 rounded-2xl bg-white/20">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div>
+        
+        <p class="opacity-80" id="date_n_day">${name} ${convertDate(day.date)}</p>
+      </div>
+      <img src="https:${day.day.condition.icon}" >
+    </div>
 
+    <div class="flex flex-col sm:flex-row items-start sm:items-center mt-6 gap-6">
+      <div class="text-3xl font-bold" id="current_temp">${day.day.avgtemp_c}°C</div>
+      <div>
+        <p class="text-xl" id="current_condition">${day.day.condition.text}</p>
+        <div class="flex gap-4 text-sm mt-2 opacity-80">
+      <div class="flex items-center gap-2 text-sm opacity-80">
+        <span>💨</span>
+        <span id="wind">${day.day.avgvis_km} km/h</span>
+      </div>
+      
+      <div class="flex items-center gap-2 text-sm opacity-80">
+        <span>💧</span>
+        <span id="humidity">${day.day.avghumidity}%</span>
+      </div>
+      
+        </div>
+      </div>
+    </div>
+  </div>`;
     if (date.getDay() === 1) return; // stop at Monday
   });
 
   document.getElementById("weekdays").innerHTML = forcast;
 }
+
 
 function saveRecentCity(city) {
   let cities = JSON.parse(localStorage.getItem("recent")) || [];
@@ -150,6 +181,11 @@ function updateDropdown() {
   });
 }
 
+function convertDate(dateString) {
+  const [date] = dateString.split(" ");
+  const [year, month, day] = date.split("-");
+  return `${day}-${month}-${year}`;
+}
 recentSelect.addEventListener("change", function () {
   const selectedCity = this.value;
   if (selectedCity) {
